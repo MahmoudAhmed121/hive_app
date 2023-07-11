@@ -1,4 +1,8 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_app/manager/add_cubits/add_cubit.dart';
+import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/widgets/custom_buttom.dart';
 import 'package:hive_app/views/widgets/custom_text_form_faild.dart';
 
@@ -20,52 +24,82 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Form(
-        key: key,
+    return BlocProvider(
+      create: (context) => AddNotesCubit(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextFormFaild(
-                hintText: "Type",
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return "type is empty";
-                  }
-                  return null;
+          child: BlocConsumer<AddNotesCubit, AddNoteState>(
+            listener: (context, state) {
+              if (state is AddNotesSuccess) {
+                Navigator.pop(context);
+              }
+              if (state is AddNotesFailure) {
+                print("mahmoud");
+              }
+            },
+            builder: (context, state) {
+              return ConditionalBuilder(
+                condition: state is! AddNotesLoading,
+                builder: (context) {
+                  return Form(
+                    key: key,
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFormFaild(
+                          hintText: "Type",
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return "type is empty";
+                            }
+                            return null;
+                          },
+                          textEditingController: textEditingControllerforTitle,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        CustomTextFormFaild(
+                          hintText: "Descraption",
+                          validator: (value) {
+                            if (value?.isEmpty ?? true) {
+                              return "type is empty";
+                            }
+                            return null;
+                          },
+                          textEditingController: textEditingControllerfordesc,
+                          maxLines: 5,
+                        ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        CustomButton(
+                            onPressed: () {
+                              if (key.currentState!.validate()) {
+                                var notesModel = NotesModel(
+                                    title: textEditingControllerforTitle.text,
+                                    subtitle: textEditingControllerfordesc.text,
+                                    color: Colors.blue.value,
+                                    date: DateTime.now().toString());
+                                AddNotesCubit.get(context).add(notesModel);
+                              }
+                            },
+                            text: "add"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  );
                 },
-                textEditingController: textEditingControllerforTitle,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CustomTextFormFaild(
-                hintText: "Descraption",
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return "type is empty";
-                  }
-                  return null;
+                fallback: (context) {
+                  return Center(child: CircularProgressIndicator());
                 },
-                textEditingController: textEditingControllerfordesc,
-                maxLines: 5,
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              CustomButton(
-                  onPressed: () {
-                    if (key.currentState!.validate()) {}
-                  },
-                  text: "add"),
-                   SizedBox(
-                height: 10,
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),
