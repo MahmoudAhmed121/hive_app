@@ -27,7 +27,7 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
     return BlocProvider(
       create: (context) => AddNotesCubit(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding:  EdgeInsets.only(left: 16,right: 16,bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: BlocConsumer<AddNotesCubit, AddNoteState>(
             listener: (context, state) {
@@ -39,44 +39,47 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
               }
             },
             builder: (context, state) {
-              return ConditionalBuilder(
-                condition: state is! AddNotesLoading,
-                builder: (context) {
-                  return Form(
-                    key: key,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        CustomTextFormFaild(
-                          hintText: "Type",
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return "type is empty";
-                            }
-                            return null;
-                          },
-                          textEditingController: textEditingControllerforTitle,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextFormFaild(
-                          hintText: "Descraption",
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return "type is empty";
-                            }
-                            return null;
-                          },
-                          textEditingController: textEditingControllerfordesc,
-                          maxLines: 5,
-                        ),
-                        SizedBox(
-                          height: 100,
-                        ),
-                        CustomButton(
+              return AbsorbPointer(
+                absorbing: state is AddNotesLoading ? true : false,
+                child: Form(
+                  key: key,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextFormFaild(
+                        hintText: "Type",
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return "type is empty";
+                          }
+                          return null;
+                        },
+                        textEditingController: textEditingControllerforTitle,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CustomTextFormFaild(
+                        hintText: "Descraption",
+                        validator: (value) {
+                          if (value?.isEmpty ?? true) {
+                            return "type is empty";
+                          }
+                          return null;
+                        },
+                        textEditingController: textEditingControllerfordesc,
+                        maxLines: 5,
+                      ),
+                      SizedBox(
+                        height: 100,
+                      ),
+                      ConditionalBuilder(
+                        condition: state is AddNotesLoading ? false : true,
+                        builder: (context) {
+                          return  CustomButton(
+                          
                             onPressed: () {
                               if (key.currentState!.validate()) {
                                 var notesModel = NotesModel(
@@ -87,17 +90,18 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                                 AddNotesCubit.get(context).add(notesModel);
                               }
                             },
-                            text: "add"),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                fallback: (context) {
-                  return Center(child: CircularProgressIndicator());
-                },
+                            text: "add");                
+                        },
+                        fallback: (context) {
+                          return Center(child: CircularProgressIndicator(),);
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           ),
