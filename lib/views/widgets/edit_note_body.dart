@@ -13,7 +13,6 @@ class EditNoteBody extends StatelessWidget {
       child: SizedBox(
         width: width,
         child: Padding(
-
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
@@ -21,14 +20,14 @@ class EditNoteBody extends StatelessWidget {
               CustomTextFormFaild(
                   textEditingController: textFormFieldforTitle,
                   hintText: "Title"),
-                  SizedBox(
-                    height: 20,
-                  ),
+              SizedBox(
+                height: 20,
+              ),
               CustomTextFormFaild(
-                  textEditingController: textFormFieldforContent,
-                  hintText: "content",
-                  
-                  maxLines: 5,)
+                textEditingController: textFormFieldforContent,
+                hintText: "content",
+                maxLines: 5,
+              )
             ],
           ),
         ),
