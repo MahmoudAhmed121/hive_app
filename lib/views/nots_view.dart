@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive_app/views/nots_bodt.dart';
+import 'package:hive_app/views/nots_body.dart';
 
 class NotsView extends StatelessWidget {
   const NotsView({super.key});
