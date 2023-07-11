@@ -24,44 +24,49 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Form(
         key: key,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextFormFaild(
-              hintText: "Type",
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return "type is empty";
-                }
-                return null;
-              },
-              textEditingController: textEditingControllerforTitle,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomTextFormFaild(
-              hintText: "Descraption",
-              validator: (value) {
-                if (value?.isEmpty ?? true) {
-                  return "type is empty";
-                }
-                return null;
-              },
-              textEditingController: textEditingControllerfordesc,
-              maxLines: 5,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            CustomButton(onPressed: () {
-              if(key.currentState!.validate()){
-
-              }
-            }, text: "save")
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextFormFaild(
+                hintText: "Type",
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return "type is empty";
+                  }
+                  return null;
+                },
+                textEditingController: textEditingControllerforTitle,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTextFormFaild(
+                hintText: "Descraption",
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return "type is empty";
+                  }
+                  return null;
+                },
+                textEditingController: textEditingControllerfordesc,
+                maxLines: 5,
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              CustomButton(
+                  onPressed: () {
+                    if (key.currentState!.validate()) {}
+                  },
+                  text: "add"),
+                   SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );
