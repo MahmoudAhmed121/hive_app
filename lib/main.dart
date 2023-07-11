@@ -16,7 +16,9 @@ class HiveApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
 
       ),
+      
       home:NotsView() ,
+      
     );
   }
 }
