@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_app/manager/add_cubits/add_cubit.dart';
 import 'package:hive_app/views/widgets/custom_iteam_color.dart';
+
+import '../../core/utils/constant.dart';
 
 class CustomListForColor extends StatefulWidget {
   const CustomListForColor({super.key});
@@ -10,13 +13,7 @@ class CustomListForColor extends StatefulWidget {
 
 class _CustomListForColorState extends State<CustomListForColor> {
   int curentIndex = 0;
-List<Color> myList = [
-  Color(0xff58355E),
-  Color(0xffE03616),
-  Color(0xffFFF689),
-  Color(0xffCFFFB0),
-  Color(0xff5998C5),
-];
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,6 +27,7 @@ List<Color> myList = [
             child: GestureDetector(
                 onTap: () {
                   curentIndex = index;
+                  AddNotesCubit.get(context).color = myList[index];
                   setState(() {});
                 },
                 child: CustomIteamColor(isActive: curentIndex == index,

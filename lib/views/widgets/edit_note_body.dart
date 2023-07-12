@@ -3,6 +3,7 @@ import 'package:hive_app/manager/notes/notes_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/widgets/custom_app_bar.dart';
 import 'package:hive_app/views/widgets/custom_text_form_faild.dart';
+import 'package:hive_app/views/widgets/edit_custom_list_for_color.dart';
 
 class EditNoteBody extends StatelessWidget {
   EditNoteBody({super.key, required this.notesModel});
@@ -51,7 +52,11 @@ class EditNoteBody extends StatelessWidget {
                 textEditingController: textFormFieldforContent,
                 hintText: "content",
                 maxLines: 5,
-              )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              EditCustomListColor(notesModel: notesModel,)
             ],
           ),
         ),
