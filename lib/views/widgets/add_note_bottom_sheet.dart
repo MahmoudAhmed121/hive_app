@@ -5,6 +5,7 @@ import 'package:hive_app/manager/add_cubits/add_cubit.dart';
 import 'package:hive_app/manager/notes/notes_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/widgets/custom_buttom.dart';
+import 'package:hive_app/views/widgets/custom_list_for_clor.dart';
 import 'package:hive_app/views/widgets/custom_text_form_faild.dart';
 import 'package:intl/intl.dart';
 
@@ -124,39 +125,6 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
   }
 }
 
-class CustomIteamColor extends StatelessWidget {
-  const CustomIteamColor({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 38,
-      backgroundColor: Colors.white,
-      child: CircleAvatar(
-        radius: 34,
-        backgroundColor: Colors.blue,
-      ),
-    );
-  }
-}
 
-class CustomListForColor extends StatelessWidget {
-  const CustomListForColor({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 38 *2,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: CustomIteamColor(),
-          );
-        },
-      ),
-    );
-  }
-}
