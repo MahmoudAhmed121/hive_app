@@ -17,8 +17,7 @@ class CustomTextFormFaild extends StatelessWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hintText,
-        hintTextDirection: TextDirection.rtl,
-        labelText: "sdsd",
+       
         
         border: buildBorder(),
         enabledBorder: buildBorder(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_app/manager/notes/notes_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/edit_note_view.dart';
 
@@ -11,7 +12,7 @@ class CustomIteamFornote extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return EditNoteView();
+            return EditNoteView(notesModel: notesModel,);
           },
         ));
       },
@@ -32,7 +33,10 @@ class CustomIteamFornote extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 18, color: Colors.black.withOpacity(0.4)),
               ),
-              trailing: IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+              trailing: IconButton(onPressed: () {
+                notesModel.delete();
+                 NotesCubit.get(context).fetchAllNote();
+              }, icon: Icon(Icons.delete)),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 24),

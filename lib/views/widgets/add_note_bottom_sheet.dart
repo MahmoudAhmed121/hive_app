@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_app/manager/add_cubits/add_cubit.dart';
+import 'package:hive_app/manager/notes/notes_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/widgets/custom_buttom.dart';
 import 'package:hive_app/views/widgets/custom_text_form_faild.dart';
@@ -28,15 +29,19 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
     return BlocProvider(
       create: (context) => AddNotesCubit(),
       child: Padding(
-        padding:  EdgeInsets.only(left: 16,right: 16,bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
           child: BlocConsumer<AddNotesCubit, AddNoteState>(
             listener: (context, state) {
               if (state is AddNotesSuccess) {
+                NotesCubit.get(context).fetchAllNote();
                 Navigator.pop(context);
               }
               if (state is AddNotesFailure) {
-                print("mahmoud");
+                
               }
             },
             builder: (context, state) {
@@ -79,24 +84,27 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                       ConditionalBuilder(
                         condition: state is AddNotesLoading ? false : true,
                         builder: (context) {
-                          return  CustomButton(
-                          
-                            onPressed: () {
-                              var dataTime= DateTime.now();
-                              var forMateDateTime = DateFormat("dd-MM-yyyy").format(dataTime);
-                              if (key.currentState!.validate()) {
-                                var notesModel = NotesModel(
-                                    title: textEditingControllerforTitle.text,
-                                    subtitle: textEditingControllerfordesc.text,
-                                    color: Colors.blue.value,
-                                    date: forMateDateTime);
-                                AddNotesCubit.get(context).add(notesModel,context);
-                              }
-                            },
-                            text: "add");                
+                          return CustomButton(
+                              onPressed: () {
+                                var dataTime = DateTime.now();
+                                var forMateDateTime =
+                                    DateFormat("dd-MM-yyyy").format(dataTime);
+                                if (key.currentState!.validate()) {
+                                  var notesModel = NotesModel(
+                                      title: textEditingControllerforTitle.text,
+                                      subtitle:
+                                          textEditingControllerfordesc.text,
+                                      color: Colors.blue.value,
+                                      date: forMateDateTime);
+                                  AddNotesCubit.get(context).add(notesModel);
+                                }
+                              },
+                              text: "add");
                         },
                         fallback: (context) {
-                          return Center(child: CircularProgressIndicator(),);
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
                         },
                       ),
                       SizedBox(
