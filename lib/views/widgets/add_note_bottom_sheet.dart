@@ -5,6 +5,7 @@ import 'package:hive_app/manager/add_cubits/add_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/views/widgets/custom_buttom.dart';
 import 'package:hive_app/views/widgets/custom_text_form_faild.dart';
+import 'package:intl/intl.dart';
 
 class NotBottomSheet extends StatefulWidget {
   NotBottomSheet({super.key});
@@ -81,12 +82,14 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                           return  CustomButton(
                           
                             onPressed: () {
+                              var dataTime= DateTime.now();
+                              var forMateDateTime = DateFormat("dd-MM-yyyy").format(dataTime);
                               if (key.currentState!.validate()) {
                                 var notesModel = NotesModel(
                                     title: textEditingControllerforTitle.text,
                                     subtitle: textEditingControllerfordesc.text,
                                     color: Colors.blue.value,
-                                    date: DateTime.now().toString());
+                                    date: forMateDateTime);
                                 AddNotesCubit.get(context).add(notesModel,context);
                               }
                             },
