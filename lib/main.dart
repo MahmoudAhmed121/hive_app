@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_app/core/utils/constant.dart';
+import 'package:hive_app/manager/notes/notes_cubit.dart';
 import 'package:hive_app/model/note_model.dart';
 import 'package:hive_app/simble_bloc_observer.dart';
 import 'package:hive_app/views/nots_view.dart';
@@ -20,12 +21,17 @@ class HiveApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NotesCubit()..fetchAllNote(),)
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
+        ),
+        home: NotsView(),
       ),
-      home: NotsView(),
     );
   }
 }

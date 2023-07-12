@@ -87,7 +87,7 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                                     subtitle: textEditingControllerfordesc.text,
                                     color: Colors.blue.value,
                                     date: DateTime.now().toString());
-                                AddNotesCubit.get(context).add(notesModel);
+                                AddNotesCubit.get(context).add(notesModel,context);
                               }
                             },
                             text: "add");                

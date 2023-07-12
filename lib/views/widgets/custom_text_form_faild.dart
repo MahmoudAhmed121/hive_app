@@ -16,12 +16,14 @@ class CustomTextFormFaild extends StatelessWidget {
     return TextFormField(
       maxLines: maxLines,
       decoration: InputDecoration(
-          hintText: hintText,
-         hintTextDirection: TextDirection.rtl,
-       labelText: "sdsd",
-          border: buildBorder(),
-          enabledBorder: buildBorder(),
-          disabledBorder: buildBorder()),
+        hintText: hintText,
+        hintTextDirection: TextDirection.rtl,
+        labelText: "sdsd",
+        
+        border: buildBorder(),
+        enabledBorder: buildBorder(),
+        disabledBorder: buildBorder(),
+      ),
       validator: validator,
       controller: textEditingController,
     );
