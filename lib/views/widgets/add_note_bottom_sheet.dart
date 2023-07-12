@@ -40,9 +40,7 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                 NotesCubit.get(context).fetchAllNote();
                 Navigator.pop(context);
               }
-              if (state is AddNotesFailure) {
-                
-              }
+              if (state is AddNotesFailure) {}
             },
             builder: (context, state) {
               return AbsorbPointer(
@@ -78,8 +76,12 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
                         textEditingController: textEditingControllerfordesc,
                         maxLines: 5,
                       ),
+                        SizedBox(
+                        height: 30,
+                      ),
+                      CustomListForColor(),
                       SizedBox(
-                        height: 100,
+                        height: 30,
                       ),
                       ConditionalBuilder(
                         condition: state is AddNotesLoading ? false : true,
@@ -117,6 +119,43 @@ class _NotBottomSheetState extends State<NotBottomSheet> {
             },
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomIteamColor extends StatelessWidget {
+  const CustomIteamColor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 38,
+      backgroundColor: Colors.white,
+      child: CircleAvatar(
+        radius: 34,
+        backgroundColor: Colors.blue,
+      ),
+    );
+  }
+}
+
+class CustomListForColor extends StatelessWidget {
+  const CustomListForColor({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 38 *2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: CustomIteamColor(),
+          );
+        },
       ),
     );
   }
